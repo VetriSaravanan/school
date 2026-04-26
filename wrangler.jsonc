@@ -1,0 +1,6 @@
+{
+  "name": "preschool-app",
+  "main": "dist/server/index.js",
+  "compatibility_date": "2024-11-01",
+  "compatibility_flags": ["nodejs_compat"]
+}

@@ -1,0 +1,840 @@
+/* Google Fonts must come before any other @import per CSS spec */
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Comic+Neue:wght@400;700&family=Poppins:wght@300;400;500;600;700&display=swap");
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-teal: var(--teal);
+  --color-purple: var(--purple);
+  --color-navy: var(--navy);
+  --color-sky: var(--sky);
+  --color-pink: var(--pink);
+  --color-lime: var(--lime);
+  --color-coral: var(--coral);
+  --color-lavender: var(--lavender);
+  --breakpoint-xs: 400px;
+  --font-play: var(--font-play);
+  --font-body: var(--font-body);
+  --shadow-toy: 0 8px 32px oklch(0.27 0.12 275 / 0.18);
+  --shadow-toy-lg: 0 20px 60px oklch(0.27 0.12 275 / 0.22);
+}
+
+:root {
+  --radius: 1.25rem;
+
+  /* ====== STRICT 5-COLOR PALETTE ======
+     #1a1a6e Dark Navy  -> oklch(0.27 0.12 275)
+     #1565c0 Royal Blue -> oklch(0.52 0.16 258)
+     #e63946 Crimson    -> oklch(0.60 0.22 25)
+     #00b4d8 Cyan       -> oklch(0.71 0.13 220)
+     #fff0e6 Cream      -> oklch(0.97 0.02 60)
+  */
+  --navy: oklch(0.27 0.12 275);
+  --royal: oklch(0.52 0.16 258);
+  --crimson: oklch(0.6 0.22 25);
+  --cyan: oklch(0.71 0.13 220);
+  --cream: oklch(0.97 0.02 60);
+
+  --background: var(--cream);
+  --foreground: var(--navy);
+  --card: oklch(1 0 0);
+  --card-foreground: var(--navy);
+  --popover: oklch(1 0 0);
+  --popover-foreground: var(--navy);
+
+  /* Map semantic tokens to the 5-color palette */
+  --primary: var(--crimson);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--cyan);
+  --secondary-foreground: var(--navy);
+  --accent: var(--royal);
+  --accent-foreground: oklch(1 0 0);
+
+  /* Legacy aliases — all remap to the 5 colors so existing components keep working */
+  --teal: var(--cyan);
+  --purple: var(--royal);
+  --sky: var(--cyan);
+  --pink: var(--crimson);
+  --lime: var(--cyan);
+  --coral: var(--crimson);
+  --lavender: var(--cream);
+
+  --muted: oklch(0.95 0.02 60);
+  --muted-foreground: oklch(0.45 0.04 270);
+  --destructive: var(--crimson);
+  --destructive-foreground: oklch(1 0 0);
+  --border: oklch(0.9 0.04 250);
+  --input: oklch(0.9 0.04 250);
+  --ring: var(--crimson);
+
+  --font-play: "Fredoka", "Comic Neue", cursive;
+  --font-body: "Fredoka", "Poppins", sans-serif;
+}
+
+.dark {
+  --background: oklch(0.18 0.05 275);
+  --foreground: var(--cream);
+  --card: oklch(0.24 0.06 275);
+  --card-foreground: var(--cream);
+  --popover: oklch(0.24 0.06 275);
+  --popover-foreground: var(--cream);
+  --primary: var(--crimson);
+  --primary-foreground: oklch(1 0 0);
+  --secondary: var(--cyan);
+  --secondary-foreground: var(--navy);
+  --muted: oklch(0.28 0.05 275);
+  --muted-foreground: oklch(0.78 0.02 70);
+  --accent: var(--royal);
+  --accent-foreground: oklch(1 0 0);
+  --border: oklch(1 0 0 / 12%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: var(--crimson);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-play);
+    line-height: 1.15;
+  }
+
+  section {
+    scroll-margin-top: 120px;
+  }
+}
+
+/* Mobile-first padding tune-down for all content sections */
+@media (max-width: 768px) {
+  section.py-24 {
+    padding-top: 56px !important;
+    padding-bottom: 56px !important;
+  }
+
+  .section-sub {
+    margin-bottom: 28px !important;
+    font-size: 14.5px !important;
+  }
+}
+
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 64px;
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+}
+
+/* ===== Funky Keyframes ===== */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-22px) rotate(3deg);
+  }
+}
+
+@keyframes float-r {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0);
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(-3deg);
+  }
+}
+
+@keyframes bounce-fun {
+
+  0%,
+  100% {
+    transform: translateY(0) scale(1);
+  }
+
+  40% {
+    transform: translateY(-16px) scale(1.05);
+  }
+
+  70% {
+    transform: translateY(-8px) scale(0.98);
+  }
+}
+
+@keyframes wiggle {
+
+  0%,
+  100% {
+    transform: rotate(-6deg);
+  }
+
+  50% {
+    transform: rotate(6deg);
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pop {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+@keyframes sway {
+
+  0%,
+  100% {
+    transform: rotate(-8deg) translateX(0);
+  }
+
+  50% {
+    transform: rotate(8deg) translateX(8px);
+  }
+}
+
+@keyframes butterfly {
+  0% {
+    transform: translate(0, 0) rotate(0);
+  }
+
+  25% {
+    transform: translate(30px, -20px) rotate(10deg);
+  }
+
+  50% {
+    transform: translate(60px, 0) rotate(0);
+  }
+
+  75% {
+    transform: translate(30px, 20px) rotate(-10deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+@keyframes twinkle {
+
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.75);
+  }
+}
+
+@keyframes balloon-rise {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(-3deg);
+  }
+
+  50% {
+    transform: translateY(-25px) rotate(3deg);
+  }
+}
+
+@keyframes pencil-write {
+
+  0%,
+  100% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@keyframes crayon-color {
+
+  0%,
+  100% {
+    transform: rotate(-8deg) translateY(0);
+  }
+
+  50% {
+    transform: rotate(8deg) translateY(-10px);
+  }
+}
+
+@keyframes cloud-drift {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(20px);
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+
+  100% {
+    left: 200%;
+  }
+}
+
+/* Hanging swing — for the navbar tiles */
+@keyframes hang-swing {
+
+  0%,
+  100% {
+    transform: rotate(var(--rest, -3deg));
+  }
+
+  50% {
+    transform: rotate(var(--peak, 3deg));
+  }
+}
+
+@keyframes hang-bounce {
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(var(--rest, 0deg));
+  }
+
+  50% {
+    transform: translateY(-6px) rotate(var(--peak, 0deg));
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-r {
+  animation: float-r 5s ease-in-out infinite;
+}
+
+.animate-bounce-fun {
+  animation: bounce-fun 2.5s ease-in-out infinite;
+}
+
+.animate-wiggle {
+  animation: wiggle 2s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+.animate-pop {
+  animation: pop 2.5s ease-in-out infinite;
+}
+
+.animate-sway {
+  animation: sway 5s ease-in-out infinite;
+}
+
+.animate-butterfly {
+  animation: butterfly 11s ease-in-out infinite;
+}
+
+.animate-twinkle {
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.animate-balloon {
+  animation: balloon-rise 4s ease-in-out infinite;
+}
+
+.animate-pencil {
+  animation: pencil-write 2.5s ease-in-out infinite;
+}
+
+.animate-crayon {
+  animation: crayon-color 3s ease-in-out infinite;
+}
+
+.animate-cloud {
+  animation: cloud-drift 8s ease-in-out infinite;
+}
+
+.animate-ticker {
+  animation: ticker 32s linear infinite;
+}
+
+/* ===== Toy buttons ===== */
+.btn-toy {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  font-family: var(--font-play);
+  font-weight: 700;
+  font-size: 15px;
+  cursor: pointer;
+  transition:
+    transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.25s;
+  letter-spacing: 0.3px;
+  border: 3px solid transparent;
+}
+
+.btn-toy-primary {
+  background: linear-gradient(180deg, var(--crimson) 0%, oklch(0.52 0.2 25) 100%);
+  color: #fff;
+  border-color: oklch(0.42 0.18 25);
+  box-shadow:
+    0 6px 0 oklch(0.42 0.18 25),
+    0 10px 20px oklch(0.6 0.22 25 / 0.35);
+}
+
+.btn-toy-primary:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 oklch(0.42 0.18 25),
+    0 16px 28px oklch(0.6 0.22 25 / 0.45);
+}
+
+.btn-toy-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 oklch(0.42 0.18 25);
+}
+
+.btn-toy-secondary {
+  background: linear-gradient(180deg, var(--cyan) 0%, oklch(0.62 0.13 220) 100%);
+  color: var(--navy);
+  border-color: oklch(0.5 0.13 220);
+  box-shadow:
+    0 6px 0 oklch(0.5 0.13 220),
+    0 10px 20px oklch(0.71 0.13 220 / 0.35);
+}
+
+.btn-toy-secondary:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 oklch(0.5 0.13 220),
+    0 16px 28px oklch(0.71 0.13 220 / 0.45);
+}
+
+.btn-toy-secondary:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 oklch(0.5 0.13 220);
+}
+
+.btn-toy-accent {
+  background: linear-gradient(180deg, var(--royal) 0%, oklch(0.42 0.16 258) 100%);
+  color: #fff;
+  border-color: oklch(0.34 0.14 258);
+  box-shadow:
+    0 6px 0 oklch(0.34 0.14 258),
+    0 10px 20px oklch(0.52 0.16 258 / 0.35);
+}
+
+.btn-toy-accent:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    0 9px 0 oklch(0.34 0.14 258),
+    0 16px 28px oklch(0.52 0.16 258 / 0.45);
+}
+
+/* ===== Section title ===== */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-play);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 6px 18px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+  letter-spacing: 0.5px;
+}
+
+.section-title {
+  font-family: var(--font-play);
+  font-size: clamp(28px, 3.6vw, 46px);
+  color: var(--navy);
+  margin-bottom: 12px;
+  text-shadow: 2px 2px 0 oklch(0.71 0.13 220 / 0.35);
+}
+
+.dark .section-title {
+  color: var(--foreground);
+}
+
+.section-sub {
+  font-size: 16px;
+  color: var(--muted-foreground);
+  max-width: 600px;
+  margin: 0 auto 48px;
+  line-height: 1.7;
+}
+
+/* ===== Toy card ===== */
+.toy-card {
+  background: var(--card);
+  border: 2.5px solid var(--border);
+  border-radius: 24px;
+  padding: 28px;
+  transition:
+    transform 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+    box-shadow 0.35s,
+    border-color 0.35s;
+  position: relative;
+  overflow: hidden;
+}
+
+.toy-card:hover {
+  transform: translateY(-10px) rotate(0.5deg);
+  box-shadow: var(--shadow-toy-lg);
+  border-color: var(--primary);
+}
+
+.toy-card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, oklch(1 0 0 / 0.5), transparent);
+  transition: 0.8s;
+}
+
+.toy-card:hover::after {
+  left: 200%;
+}
+
+/* Decorations visible on all viewports — sit BEHIND content, never block taps */
+.deco-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.deco-layer>* {
+  pointer-events: none;
+}
+
+/* On mobile keep decorations subtle so text stays the hero */
+@media (max-width: 768px) {
+  .deco-layer {
+    opacity: 0.55;
+  }
+
+  .deco-layer>* {
+    transform: scale(0.7);
+    transform-origin: center;
+    will-change: auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .deco-layer {
+    opacity: 0.4;
+  }
+
+  .deco-layer>* {
+    transform: scale(0.55);
+  }
+}
+
+/* ===== Hanging Nav Tiles ===== */
+.hang-tile-wrap {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  transform-origin: top center;
+  animation: hang-swing 3.6s ease-in-out infinite;
+  padding-top: 6px;
+}
+
+.hang-tile-wrap::before {
+  /* the string */
+  content: "";
+  position: absolute;
+  top: -22px;
+  left: 50%;
+  width: 2px;
+  height: 26px;
+  background: var(--navy);
+  opacity: 0.55;
+  transform: translateX(-50%);
+}
+
+.hang-tile-wrap::after {
+  /* the knot at top */
+  content: "";
+  position: absolute;
+  top: -26px;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--navy);
+  transform: translateX(-50%);
+  box-shadow: 0 1px 0 oklch(1 0 0 / 0.4) inset;
+}
+
+.hang-tile {
+  width: 64px;
+  height: 64px;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  border: 4px solid #fff;
+  box-shadow:
+    0 6px 0 oklch(0 0 0 / 0.12),
+    0 12px 24px oklch(0.27 0.12 275 / 0.25);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+}
+
+.hang-tile-label {
+  margin-top: 6px;
+  font-family: var(--font-play);
+  font-weight: 700;
+  font-size: 11px;
+  letter-spacing: 0.6px;
+  color: var(--navy);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.hang-tile-wrap:hover {
+  animation-play-state: paused;
+}
+
+.hang-tile-wrap:hover .hang-tile {
+  transform: translateY(-4px) scale(1.08);
+}
+
+.hang-tile-wrap.is-active .hang-tile {
+  outline: 3px solid var(--secondary);
+  outline-offset: 3px;
+}
+
+.hang-tile-wrap.is-active .hang-tile-label {
+  color: var(--primary);
+}
+
+/* ===== GALLERY RATIO GUIDE ===== */
+.gallery-item {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--card);
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.gallery-item.square {
+  aspect-ratio: 1 / 1;
+}
+
+.gallery-item.portrait {
+  aspect-ratio: 4 / 5;
+}
+
+.gallery-item.portrait-tall {
+  aspect-ratio: 9 / 16;
+}
+
+.gallery-item.landscape {
+  aspect-ratio: 3 / 2;
+}
+
+.gallery-item.banner {
+  aspect-ratio: 16 / 9;
+}
+
+.gallery-masonry {
+  column-count: 2;
+  column-gap: 16px;
+}
+
+@media (min-width: 640px) {
+  .gallery-masonry {
+    column-count: 3;
+  }
+}
+
+@media (min-width: 1024px) {
+  .gallery-masonry {
+    column-count: 4;
+  }
+}
+
+.gallery-masonry .gallery-item {
+  break-inside: avoid;
+  display: inline-block;
+  /* Helps prevent breaking across columns */
+}
+
+/* ===== OPTIMIZED IMAGE SYSTEM ===== */
+
+/* Wrapper — establishes stacking context for shimmer + img */
+.opt-img-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer placeholder — animated skeleton */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.opt-img-shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    oklch(0.92 0.02 60) 0%,
+    oklch(0.88 0.02 250 / 0.3) 50%,
+    oklch(0.92 0.02 60) 100%
+  );
+  z-index: 1;
+  border-radius: inherit;
+}
+
+.opt-img-shimmer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    oklch(1 0 0 / 0.5) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
+/* Image hidden while loading */
+.opt-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: relative;
+  z-index: 2;
+}
+
+.opt-img-loading {
+  opacity: 0;
+}
+
+.opt-img-loaded {
+  opacity: 1;
+  transition: opacity 0.35s ease-out;
+}
+
+/* ===== will-change optimization ===== */
+/* Only elevate to GPU layer on hover, not permanently */
+.toy-card {
+  will-change: auto;
+}
+
+.toy-card:hover {
+  will-change: transform, box-shadow;
+}
+
+/* Reduce decoration GPU cost on mobile */
+@media (max-width: 768px) {
+  .deco-layer > * {
+    will-change: auto;
+  }
+}
